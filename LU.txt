@@ -1,0 +1,130 @@
+/**
+There is no guarantee this code is going to work. 
+The matrix struct should be like this:
+
+typedef struct dMatrix{
+	int n;
+	int m;
+	void* extra;
+	int extraSize;
+	double* data;
+
+}DMATRIX;
+
+
+**/
+#include <stdio.h>
+#include <stdlib.h>
+#include "linalg.h"
+
+#define pos(matrix, x,y) matrix.data[matrix.m*x + y]
+#define ppos(matrix, x,y) matrix->data[matrix->n*x + y]
+#define vpos(vec, x) vec.data[x]
+#define pvpos(vec, x) vec->data[x]
+#define abs(x) (x<0)?(-x):x
+
+void LUPivot(DMATRIX *A,int row,int* pivotTable){
+	if(row == A->n-1){
+            pivotTable[row]=0;
+            return;
+	}
+	int pos = row;
+	double maxYet = abs(ppos(A,row,row));
+	double hold;
+	for(int i=row+1;i<A->n;i++){
+		if(abs(ppos(A,i,row)) > maxYet){
+			maxYet = abs(ppos(A,i,row));
+			pos = i;
+		}
+	}
+
+	pivotTable[row] = pos-row;
+
+	if(pos==row){
+		return;
+	}else{
+		for(int j=0; j< A->m;j++){
+			hold = ppos(A,row,j);
+			ppos(A,row,j) = ppos(A,pos,j);
+			ppos(A,pos,j) = hold;
+		}
+	}
+
+	return;
+
+}
+
+
+
+int dLU(DMATRIX *A){
+
+	int* pivotTable;
+	int i = A->n;
+    if(!(pivotTable = (int*)malloc(i*sizeof(int)))) return MEMORY_ALLOC_ERROR;
+
+	A->extra = pivotTable;
+	A->extraSize = i;
+
+    double val;
+	for(i=0;i<A->n-1;i++){
+        LUPivot(A,i,(int*)A->extra);
+        if(ppos(A,i,i)!=0){
+            for(int k=i+1;k<A->n;k++){
+                val = -ppos(A,k,i)/ppos(A,i,i);
+                for(int j = i;j<A->m;j++){
+                    ppos(A,k,j) += val*ppos(A,i,j);
+                }
+                ppos(A,k,i) = -val;
+            }
+
+        }
+	}
+	return 0;
+}
+
+int dLUSolve(DMATRIX *A, DVECTOR* b,DVECTOR* result){
+
+    int* pivotTable = (int*)A->extra;
+    double hold;
+
+    if(result->data) free(result->data);
+
+    dVectorInit(result,b->n);
+
+    
+    for(int i=0;i<b->n;i++){
+        result->data[i] = b->data[i];
+    }
+
+    for(int i=0;i<b->n-1;i++){
+        if(pivotTable[i]){
+            hold = pvpos(result,i);
+            pvpos(result,i) = pvpos(result,i+pivotTable[i]);
+            pvpos(result,i+pivotTable[i]) = hold;
+        }
+    }
+
+    for(int i=0;i<A->n;i++){
+        for(int j=0;j<i;j++){
+            pvpos(result,i)-= ppos(A,i,j)*pvpos(result,j);
+        }
+    }
+
+    for(int i=A->n-1;i>=0;i--){
+        for(int j=A->n-1;j>i;j--){
+            pvpos(result,i) -= ppos(A,i,j)*pvpos(result,j);
+        }
+        if(ppos(A,i,i)){
+            pvpos(result,i) /= ppos(A,i,i);
+        }else if(pvpos(result,i)==0){
+             pvpos(result,i) = 1;
+        }else{
+            return SINGULAR_MATRIX;
+        }
+    }
+
+
+
+    return 0;
+
+}
