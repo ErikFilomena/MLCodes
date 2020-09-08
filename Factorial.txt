@@ -1,0 +1,9 @@
+Factorial PROC
+	cmp ecx, 0
+	je next
+	mul ecx
+	dec ecx
+	invoke Factorial
+	next: 
+	ret
+Factorial ENDP
