@@ -1,3 +1,4 @@
+;Will calculate the factorial of whatever is in ecx (it will consider it a 32 bit integer)
 Factorial PROC
 	cmp ecx, 0
 	je next
