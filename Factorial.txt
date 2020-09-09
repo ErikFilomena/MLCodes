@@ -1,4 +1,4 @@
-;Will calculate the factorial of whatever is in ecx (it will consider it a 32 bit integer). The value is stored in eax
+;32-bit function that will calculate the factorial of whatever is in ecx (it will consider it a 32 bit integer). The value is stored in eax
 Factorial PROC
 	cmp ecx, 0
 	je next
