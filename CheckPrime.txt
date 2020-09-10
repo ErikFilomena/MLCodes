@@ -1,0 +1,88 @@
+//Checks if a number is prime using unix pthread
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+#include <time.h>
+
+
+#define NTHREADS 1
+
+//Found a divisor
+int found = 0;
+pthread_mutex_t lockResult;
+
+typedef struct{
+	int n;
+	unsigned __int128 nbrToTest;
+	int status;
+}DATA;
+
+void* CheckPrimeThread(void* data){
+	unsigned __int128 i=5 + ((DATA*)data)->n*6;
+	int step = NTHREADS*6;
+	printf("%d\n",((DATA*)data)->n);
+	while(i*i < ((DATA*)data)->nbrToTest){
+		if(found){
+			((DATA*)data)->status =1;
+			return NULL;
+		}
+		if(((DATA*)data)->nbrToTest % i ==0 || ((DATA*)data)->nbrToTest % (i+2) == 0){
+			found = 1;
+			((DATA*)data)->status =1;
+			return NULL;
+		}
+		
+		i += step;
+	}
+	((DATA*)data)->status =1;
+	return NULL;
+	
+}
+
+int CheckPrime(unsigned __int128 n){
+	
+	if (n < 1) return 1;
+	if(n<=3) return 1;
+	
+	if(!(n%2)) return -1;
+	if(!(n%3)) return -1;
+	
+	pthread_t* threadVec = (pthread_t*)malloc(NTHREADS*sizeof(pthread_t));
+	DATA* x = (DATA*)malloc(NTHREADS*sizeof(DATA));
+	
+	for(int i =0;i<NTHREADS;i++){
+		x[i].status =0;
+		x[i].n = i;
+		x[i].nbrToTest = n;
+		pthread_create(&threadVec[i],NULL,CheckPrimeThread,&x[i]);
+		pthread_detach(threadVec[i]);
+	}
+	
+	int statusTest;
+	for(;;){
+		statusTest =1;
+		for(int i=0;i<NTHREADS;i++){
+			statusTest = statusTest&&x[i].status;
+		}
+		if(statusTest) break;
+	}
+	
+	free(x);
+	free(threadVec);
+	return 1-2*found;
+}
+
+int main(){
+	
+	
+	unsigned __int128 n=2305843009213693951;
+	int result=0;
+	
+	long int timeSpent = clock();
+	result = CheckPrime(n);
+	timeSpent = clock() - timeSpent;
+	printf("%d %f", result,(double)tempoGasto/CLOCKS_PER_SEC);
+	
+	
+}
