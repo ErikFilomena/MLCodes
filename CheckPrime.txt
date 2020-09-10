@@ -1,4 +1,5 @@
 //Checks if a number is prime using unix pthread
+//Algorithim from https://www.geeksforgeeks.org/primality-test-set-1-introduction-and-school-method/
 
 #include <stdio.h>
 #include <stdlib.h>
