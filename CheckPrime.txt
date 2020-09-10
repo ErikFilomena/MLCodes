@@ -1,4 +1,4 @@
-//Algorithim for finding primes https://www.geeksforgeeks.org/primality-test-set-1-introduction-and-school-method . Implemented with Unix pthread.
+//Algorithim for finding primes https://www.geeksforgeeks.org/primality-test-set-1-introduction-and-school-method . Implemented with posix pthread.
 
 #include <stdio.h>
 #include <stdlib.h>
