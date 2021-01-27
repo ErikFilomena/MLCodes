@@ -1,0 +1,32 @@
+﻿  Skipping CUDA source file Matrix.cu (excluded from build).
+  Skipping CUDA source file dVector.cu (excluded from build).
+  Skipping CUDA source file Random.cu (excluded from build).
+  main.cpp
+C:\Users\erik_\Desktop\FSU\2021 Spring\Monte Carlo\Codes\MontyCodes\LinearAlgebra.h(19,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\erik_\Desktop\FSU\2021 Spring\Monte Carlo\Codes\MontyCodes\LinearAlgebra.h(21,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\erik_\Desktop\FSU\2021 Spring\Monte Carlo\Codes\MontyCodes\Faure.h(18,32): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\erik_\Desktop\FSU\2021 Spring\Monte Carlo\Codes\MontyCodes\Faure.h(99,1): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\erik_\Desktop\FSU\2021 Spring\Monte Carlo\Codes\MontyCodes\Faure.h(99): message : see reference to class template instantiation 'FaureGenerator<NBR>' being compiled
+C:\Users\erik_\Desktop\FSU\2021 Spring\Monte Carlo\Codes\MontyCodes\MarsenneGenerator.h(26,13): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\erik_\Desktop\FSU\2021 Spring\Monte Carlo\Codes\MontyCodes\Faure.h(60,1): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\erik_\Desktop\FSU\2021 Spring\Monte Carlo\Codes\MontyCodes\Faure.h(56): message : while compiling class template member function 'FaureGenerator<double>::FaureGenerator(size_t,size_t)'
+C:\Users\erik_\Desktop\FSU\2021 Spring\Monte Carlo\Codes\MontyCodes\main.cpp(44): message : see reference to function template instantiation 'FaureGenerator<double>::FaureGenerator(size_t,size_t)' being compiled
+C:\Users\erik_\Desktop\FSU\2021 Spring\Monte Carlo\Codes\MontyCodes\main.cpp(44): message : see reference to class template instantiation 'FaureGenerator<double>' being compiled
+C:\Users\erik_\Desktop\FSU\2021 Spring\Monte Carlo\Codes\MontyCodes\TriangularMatrix.h(88,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\erik_\Desktop\FSU\2021 Spring\Monte Carlo\Codes\MontyCodes\Faure.h(85): message : see reference to function template instantiation 'int UpperTringularMatrix<int>::LeftMatrixVecMulMod<size_t>(NBR2 *,NBR2 *,size_t,size_t)' being compiled
+          with
+          [
+              NBR2=size_t
+          ]
+C:\Users\erik_\Desktop\FSU\2021 Spring\Monte Carlo\Codes\MontyCodes\Faure.h(85): message : see reference to function template instantiation 'int UpperTringularMatrix<int>::LeftMatrixVecMulMod<size_t>(NBR2 *,NBR2 *,size_t,size_t)' being compiled
+          with
+          [
+              NBR2=size_t
+          ]
+C:\Users\erik_\Desktop\FSU\2021 Spring\Monte Carlo\Codes\MontyCodes\Faure.h(79): message : while compiling class template member function 'void FaureGenerator<double>::GenerateSequence(NBR *,size_t)'
+          with
+          [
+              NBR=double
+          ]
+C:\Users\erik_\Desktop\FSU\2021 Spring\Monte Carlo\Codes\MontyCodes\TriangularMatrix.h(33): warning C4715: 'UpperTringularMatrix<int>::operator=': not all control paths return a value
+  MontyCodes.vcxproj -> C:\Users\erik_\Desktop\FSU\2021 Spring\Monte Carlo\Codes\MontyCodes\x64\Debug\MontyCodes.exe
